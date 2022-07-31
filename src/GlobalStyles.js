@@ -12,8 +12,9 @@ const GlobalStyle = createGlobalStyle`
   body{
     background-color: ${(props) => props.theme.background};
     font-family: 'Quicksand', sans-serif;
+    overflow-x: hidden;
   }
-  #root{
+  main{
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -22,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme.textColor}
   }
   @media (min-width:700px) {
-    #root{
+    main{
       display: grid;
       place-items: center;
       grid-template-columns: minmax(40%,500px) minmax(60%,800px);

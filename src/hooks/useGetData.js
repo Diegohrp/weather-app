@@ -79,12 +79,29 @@ function useGetData() {
     navigator.geolocation.getCurrentPosition(onLocation, onError);
   };
 
+  const searchCity = async (city) => {
+    const API_URL = `${process.env.REACT_APP_MAPS_API}address=${city}&key=${process.env.REACT_APP_MAPS_API_KEY}`;
+    try {
+      const { data } = await axios(API_URL);
+      const location = {
+        coords: {
+          latitude: data.results[0].geometry.location.lat,
+          longitude: data.results[0].geometry.location.lng,
+        },
+      };
+      onLocation(location);
+    } catch (err) {
+      onError();
+    }
+  };
+
   //API Requests
   const getAddress = async (lat, lon, response) => {
     const API_URL = `${process.env.REACT_APP_MAPS_API}latlng=${lat},${lon}&language=en&key=${process.env.REACT_APP_MAPS_API_KEY}`;
     const { data } = await axios(API_URL);
+    console.log(data);
     const address =
-      data.results[9]?.formatted_address ||
+      data.results[8]?.formatted_address ||
       data.results[1]?.formatted_address;
     onSuccess(response, address);
   };
@@ -104,7 +121,7 @@ function useGetData() {
   React.useEffect(() => {
     getData();
   }, [state.lat, state.lon]);
-  return [state, onGetLocation];
+  return { state, onGetLocation, searchCity };
 }
 
 export { useGetData };

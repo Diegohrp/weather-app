@@ -39,7 +39,6 @@ const DetailsContainer = styled.section`
 `;
 
 function Details({ details }) {
-  console.log(details);
   let data = {
     Humidity: details.humidity + '%',
     Pressure: details.pressure + 'Pa',
