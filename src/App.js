@@ -3,7 +3,7 @@ import { CurrentDay } from './components/CurrentDay';
 import { Week } from './components/Week';
 import { HourlyWeather } from './components/HourlyWeather';
 function App() {
-  const [state, handleLocation] = useGetData();
+  const [state, onGetLocation] = useGetData();
 
   return (
     <>
@@ -11,8 +11,11 @@ function App() {
       {state.loading && <h2>Loading ... </h2>}
       {!state.loading && !state.error && (
         <>
-          <CurrentDay current={state.data.current} />
-          <button onClick={handleLocation}>Get location</button>
+          <CurrentDay
+            current={state.data.current}
+            address={state.address}
+          />
+          <button onClick={onGetLocation}>Get location</button>
           <HourlyWeather hourly={state.data.hourly} />
           <Week days={state.data.daily} />
         </>

@@ -58,7 +58,7 @@ const CardContainer = styled.section`
   }
 `;
 
-function CurrentDay({ current: { temp, weather } }) {
+function CurrentDay({ current: { temp, weather }, address }) {
   let date = new Date();
   date =
     date.toDateString() + ' ' + date.toLocaleTimeString().slice(0, 5);
@@ -73,7 +73,7 @@ function CurrentDay({ current: { temp, weather } }) {
         </div>
       </div>
       <div>
-        <h2>{Math.ceil(temp)}</h2>
+        <h2>{Math.round(temp)}</h2>
         <img
           src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
           alt='current-weather'
@@ -86,7 +86,7 @@ function CurrentDay({ current: { temp, weather } }) {
 
       <div>
         <HiOutlineLocationMarker className='location' />
-        <span>Mexico City</span>
+        <span>{address}</span>
       </div>
     </CardContainer>
   );

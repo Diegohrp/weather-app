@@ -1,13 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import { useGetLocation } from './useGetLocation';
+
 //Initial state
 const initialState = {
   loading: true,
   error: false,
   data: {},
-  lat: 19.42847,
-  lon: -99.12766,
+  lat: 19,
+  lon: 15,
+  address: null,
 };
 
 //Action type
@@ -38,7 +39,8 @@ const reducer = (state, action) => {
         ...state,
         loading: false,
         error: false,
-        data: action.payload,
+        data: action.payload.response,
+        address: action.payload.address,
       };
     case actionType.location:
       return {
@@ -46,24 +48,45 @@ const reducer = (state, action) => {
         lat: action.payload.lat,
         lon: action.payload.lon,
       };
+    default:
+      return state;
   }
 };
 
 function useGetData() {
-  const location = useGetLocation();
-
   //Use reducer
   const [state, dispatch] = React.useReducer(reducer, initialState);
+
   //Action creators
   const onLoading = () => dispatch({ type: actionType.loading });
-  const onSuccess = (response) =>
-    dispatch({ type: actionType.data, payload: response });
+  const onSuccess = (response, address) =>
+    dispatch({
+      type: actionType.data,
+      payload: { response, address },
+    });
   const onError = () => dispatch({ type: actionType.error });
-  const handleLocation = () => {
+  const onLocation = (position) => {
     dispatch({
       type: actionType.location,
-      payload: { lat: location.lat, lon: location.lon },
+      payload: {
+        lat: position.coords.latitude,
+        lon: position.coords.longitude,
+      },
     });
+  };
+
+  const onGetLocation = () => {
+    navigator.geolocation.getCurrentPosition(onLocation, onError);
+  };
+
+  //API Requests
+  const getAddress = async (lat, lon, response) => {
+    const API_URL = `${process.env.REACT_APP_MAPS_API}latlng=${lat},${lon}&language=en&key=${process.env.REACT_APP_MAPS_API_KEY}`;
+    const { data } = await axios(API_URL);
+    const address =
+      data.results[9]?.formatted_address ||
+      data.results[1]?.formatted_address;
+    onSuccess(response, address);
   };
 
   const getData = async () => {
@@ -72,8 +95,7 @@ function useGetData() {
       const { data: response } = await axios(
         `${process.env.REACT_APP_API}lat=${state.lat}&lon=${state.lon}&cnt=2&appid=${process.env.REACT_APP_API_KEY}&units=metric`
       );
-      console.log(state.lat, state.lon);
-      onSuccess(response);
+      getAddress(state.lat, state.lon, response);
     } catch (err) {
       onError();
     }
@@ -82,7 +104,7 @@ function useGetData() {
   React.useEffect(() => {
     getData();
   }, [state.lat, state.lon]);
-  return [state, handleLocation];
+  return [state, onGetLocation];
 }
 
 export { useGetData };
