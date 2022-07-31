@@ -6,7 +6,7 @@ const HourlyContainer = styled.section`
   margin-top: 50px;
   h2 {
     text-align: center;
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 20px;
   }
   div {

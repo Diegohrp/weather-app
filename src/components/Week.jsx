@@ -5,7 +5,7 @@ const WeekContainer = styled.section`
   width: min(80%, 400px);
   margin-top: 40px;
   h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     text-align: center;
     margin-bottom: 20px;
   }
