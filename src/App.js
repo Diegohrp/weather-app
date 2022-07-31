@@ -2,6 +2,7 @@ import { useGetData } from './hooks/useGetData';
 import { CurrentDay } from './components/CurrentDay';
 import { Week } from './components/Week';
 import { HourlyWeather } from './components/HourlyWeather';
+import { LocButton } from './components/LocButton';
 function App() {
   const [state, onGetLocation] = useGetData();
 
@@ -15,7 +16,7 @@ function App() {
             current={state.data.current}
             address={state.address}
           />
-          <button onClick={onGetLocation}>Get location</button>
+          <LocButton onGetLocation={onGetLocation} />
           <HourlyWeather hourly={state.data.hourly} />
           <Week days={state.data.daily} />
         </>

@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-
+export const font = 'Quicksand, sans-serif';
 const GlobalStyle = createGlobalStyle`
   *{
     margin: 0;
@@ -20,6 +20,14 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     justify-content: center;
     color: ${(props) => props.theme.textColor}
+  }
+  @media (min-width:700px) {
+    #root{
+      display: grid;
+      place-items: center;
+      grid-template-columns: minmax(40%,500px) minmax(60%,800px);
+      grid-template-rows: 400px auto;
+    }
   }
 `;
 

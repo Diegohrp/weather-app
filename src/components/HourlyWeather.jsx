@@ -41,6 +41,13 @@ const HourlyContainer = styled.section`
       width: 80px;
     }
   }
+  @media (min-width: 700px) {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    @media (min-width: 700px) {
+      width: 80%;
+    }
+  }
 `;
 
 function HourlyWeather({ hourly }) {

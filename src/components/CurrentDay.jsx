@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
+
 const CardContainer = styled.section`
   margin-top: 30px;
   width: min(80%, 400px);
-  height: 230px;
+  height: 240px;
   border-radius: 20px;
   padding: 20px;
   background-color: ${(props) => props.theme.darkColor};
@@ -55,6 +56,10 @@ const CardContainer = styled.section`
         color: ${(props) => props.theme.accentColor};
       }
     }
+  }
+  @media (min-width: 700px) {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
   }
 `;
 
