@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { font } from '../GlobalStyles';
 import { MdMyLocation } from 'react-icons/md';
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   margin-top: 30px;
   height: 30px;
   width: 140px;

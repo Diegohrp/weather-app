@@ -7,6 +7,8 @@ import { Details } from './components/Details';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Map } from './components/Map';
+import { Skeleton } from './skeletons/containers/Skeleton';
+
 function App() {
   const { state, onGetLocation, searchCity } = useGetData();
   return (
@@ -14,7 +16,7 @@ function App() {
       <Header search={searchCity} />
       <main>
         {state.error && <h2>ERROR</h2>}
-        {state.loading && <h2>Loading ... </h2>}
+        {state.loading && <Skeleton />}
         {!state.loading && !state.error && (
           <>
             <CurrentDay

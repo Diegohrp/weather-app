@@ -6,7 +6,7 @@ import {
   Marker,
 } from '@react-google-maps/api';
 
-const MapSection = styled.section`
+export const MapSection = styled.section`
   margin: 50px 0;
   width: 80%;
   h2 {

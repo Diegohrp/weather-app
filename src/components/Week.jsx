@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const WeekContainer = styled.section`
+export const WeekContainer = styled.section`
   width: min(80%, 400px);
   margin-top: 40px;
   h2 {

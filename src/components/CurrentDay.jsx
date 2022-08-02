@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 
-const CardContainer = styled.section`
+export const CardContainer = styled.section`
   margin-top: 30px;
   width: min(80%, 400px);
   height: 240px;

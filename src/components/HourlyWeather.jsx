@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const HourlyContainer = styled.section`
+export const HourlyContainer = styled.section`
   width: min(80%, 400px);
   margin-top: 50px;
   h2 {

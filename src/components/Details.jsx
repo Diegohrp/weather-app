@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const DetailsSection = styled.section`
+export const DetailsSection = styled.section`
   width: 80%;
   h2 {
     margin-top: 50px;
@@ -10,7 +10,7 @@ const DetailsSection = styled.section`
   }
 `;
 
-const DetailsContainer = styled.section`
+export const DetailsContainer = styled.section`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
