@@ -50,7 +50,7 @@ export const HourlyContainer = styled.section`
   }
 `;
 
-function HourlyWeather({ hourly }) {
+function HourlyWeather({ hourly, date }) {
   const formatHour = (hour) => {
     if (hour === 0) {
       return '12AM';
@@ -61,7 +61,7 @@ function HourlyWeather({ hourly }) {
     }
   };
 
-  let currentHour = new Date().getHours();
+  let currentHour = date.getHours();
 
   const hours = hourly.slice(0, 24).map((hour) => {
     const data = {

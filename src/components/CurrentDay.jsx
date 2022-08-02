@@ -63,8 +63,7 @@ export const CardContainer = styled.section`
   }
 `;
 
-function CurrentDay({ current: { temp, weather }, address }) {
-  let date = new Date();
+function CurrentDay({ current: { temp, weather }, address, date }) {
   date =
     date.toDateString() + ' ' + date.toLocaleTimeString().slice(0, 5);
   date = date.slice(0, 3) + ',' + date.slice(3);

@@ -6,9 +6,10 @@ const initialState = {
   loading: true,
   error: false,
   data: {},
-  lat: 19,
-  lon: 15,
+  lat: 64,
+  lon: 26,
   address: null,
+  date: null,
 };
 
 //Action type
@@ -41,6 +42,7 @@ const reducer = (state, action) => {
         error: false,
         data: action.payload.response,
         address: action.payload.address,
+        date: action.payload.date,
       };
     case actionType.location:
       return {
@@ -59,10 +61,10 @@ function useGetData() {
 
   //Action creators
   const onLoading = () => dispatch({ type: actionType.loading });
-  const onSuccess = (response, address) =>
+  const onSuccess = (response, address, date) =>
     dispatch({
       type: actionType.data,
-      payload: { response, address },
+      payload: { response, address, date },
     });
   const onError = () => dispatch({ type: actionType.error });
   const onLocation = (position) => {
@@ -83,6 +85,7 @@ function useGetData() {
     const API_URL = `${process.env.REACT_APP_MAPS_API}address=${city}&key=${process.env.REACT_APP_MAPS_API_KEY}`;
     try {
       const { data } = await axios(API_URL);
+
       const location = {
         coords: {
           latitude: data.results[0].geometry.location.lat,
@@ -95,15 +98,25 @@ function useGetData() {
     }
   };
 
+  const getLocalDate = (timeOffset) => {
+    let myDate = new Date();
+    const utcDate = new Date(myDate.toUTCString().slice(0, -4));
+    myDate.setTime(utcDate.getTime() + timeOffset * 1000);
+    return myDate;
+  };
+
   //API Requests
   const getAddress = async (lat, lon, response) => {
     const API_URL = `${process.env.REACT_APP_MAPS_API}latlng=${lat},${lon}&language=en&key=${process.env.REACT_APP_MAPS_API_KEY}`;
     const { data } = await axios(API_URL);
-    console.log(data);
+
     const address =
       data.results[8]?.formatted_address ||
       data.results[1]?.formatted_address;
-    onSuccess(response, address);
+
+    const cityDate = getLocalDate(response.timezone_offset);
+
+    onSuccess(response, address, cityDate);
   };
 
   const getData = async () => {
@@ -112,6 +125,7 @@ function useGetData() {
       const { data: response } = await axios(
         `${process.env.REACT_APP_API}lat=${state.lat}&lon=${state.lon}&cnt=2&appid=${process.env.REACT_APP_API_KEY}&units=metric`
       );
+
       getAddress(state.lat, state.lon, response);
     } catch (err) {
       onError();

@@ -20,7 +20,6 @@ export const MapSection = styled.section`
 `;
 const API_KEY = process.env.REACT_APP_MAPS_API_KEY;
 function Map({ location }) {
-  console.log(location);
   const mapStyles = {
     height: '40vh',
     width: '100%',

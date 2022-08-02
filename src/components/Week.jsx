@@ -41,10 +41,10 @@ export const WeekContainer = styled.section`
   }
 `;
 
-function Week({ days }) {
+function Week({ days, date }) {
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const currentDay = new Date();
-  let day = currentDay.getDay() - 1;
+
+  let day = date.getDay() - 1;
   const weeklyForecast = days.map((item) => {
     day === 6 ? (day = 0) : day++;
     return {

@@ -12,6 +12,7 @@ import { NotFound } from './components/NotFound';
 
 function App() {
   const { state, onGetLocation, searchCity } = useGetData();
+  console.log(state.date);
   return (
     <>
       <Header search={searchCity} />
@@ -23,10 +24,14 @@ function App() {
             <CurrentDay
               current={state.data.current}
               address={state.address}
+              date={state.date}
             />
             <LocButton onGetLocation={onGetLocation} />
-            <HourlyWeather hourly={state.data.hourly} />
-            <Week days={state.data.daily} />
+            <HourlyWeather
+              hourly={state.data.hourly}
+              date={state.date}
+            />
+            <Week days={state.data.daily} date={state.date} />
             <Details details={state.data.daily[0]} />
             <Map location={{ lat: state.lat, lon: state.lon }} />
           </>
