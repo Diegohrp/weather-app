@@ -1,3 +1,7 @@
+# weather-app
+
+App to consult weather data from your location or form any city you want.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
