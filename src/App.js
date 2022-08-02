@@ -8,6 +8,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Map } from './components/Map';
 import { Skeleton } from './skeletons/containers/Skeleton';
+import { NotFound } from './components/NotFound';
 
 function App() {
   const { state, onGetLocation, searchCity } = useGetData();
@@ -15,7 +16,7 @@ function App() {
     <>
       <Header search={searchCity} />
       <main>
-        {state.error && <h2>ERROR</h2>}
+        {state.error && <NotFound />}
         {state.loading && <Skeleton />}
         {!state.loading && !state.error && (
           <>
