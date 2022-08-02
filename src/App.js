@@ -5,6 +5,7 @@ import { HourlyWeather } from './components/HourlyWeather';
 import { LocButton } from './components/LocButton';
 import { Details } from './components/Details';
 import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 import { Map } from './components/Map';
 function App() {
   const { state, onGetLocation, searchCity } = useGetData();
@@ -28,6 +29,7 @@ function App() {
           </>
         )}
       </main>
+      <Footer />
     </>
   );
 }
