@@ -12,7 +12,7 @@ import { NotFound } from './components/NotFound';
 
 function App() {
   const { state, onGetLocation, searchCity } = useGetData();
-  console.log(state.date);
+
   return (
     <>
       <Header search={searchCity} />

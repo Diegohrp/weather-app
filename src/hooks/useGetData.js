@@ -82,16 +82,28 @@ function useGetData() {
   };
 
   const searchCity = async (city) => {
-    const API_URL = `${process.env.REACT_APP_MAPS_API}address=${city}&key=${process.env.REACT_APP_MAPS_API_KEY}`;
+    /* const API_URL = `${process.env.REACT_APP_MAPS_API}address=${city}&key=${process.env.REACT_APP_MAPS_API_KEY}`; */
+    // prettier-ignore
+    const API_URL = `${process.env.REACT_APP_MAPS_API}direct?q=${city}&limit=${5}&appid=${process.env.REACT_APP_API_KEY}`;
     try {
       const { data } = await axios(API_URL);
 
+      /* 
+        Google Maps
+        const location = {
+          coords: {
+            latitude: data.results[0].geometry.location.lat,
+            longitude: data.results[0].geometry.location.lng,
+          },
+        }; 
+      */
       const location = {
         coords: {
-          latitude: data.results[0].geometry.location.lat,
-          longitude: data.results[0].geometry.location.lng,
+          latitude: data[0].lat,
+          longitude: data[0].lon,
         },
       };
+
       onLocation(location);
     } catch (err) {
       onError();
@@ -107,12 +119,21 @@ function useGetData() {
 
   //API Requests
   const getAddress = async (lat, lon, response) => {
-    const API_URL = `${process.env.REACT_APP_MAPS_API}latlng=${lat},${lon}&language=en&key=${process.env.REACT_APP_MAPS_API_KEY}`;
+    /* const API_URL = `${process.env.REACT_APP_MAPS_API}latlng=${lat},${lon}&language=en&key=${process.env.REACT_APP_MAPS_API_KEY}`; */
+    // prettier-ignore
+    const API_URL = `${process.env.REACT_APP_MAPS_API}reverse?lat=${lat}&lon=${lon}&limit=${5}&appid=${process.env.REACT_APP_API_KEY}`;
     const { data } = await axios(API_URL);
 
+    /*
+    Google Maps 
     const address =
       data.results[8]?.formatted_address ||
-      data.results[1]?.formatted_address;
+      data.results[1]?.formatted_address; 
+    */
+
+    const address = `${data[0].name} ${data[0]?.state || ''}, ${
+      data[0].country
+    }`;
 
     const cityDate = getLocalDate(response.timezone_offset);
 
